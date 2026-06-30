@@ -15,6 +15,9 @@ import { OrdersPage } from './screens/ordersPage';
 import { OtherNavbar } from './components/header/OtherNavbar';
 import { HomeNavbar } from './components/header/HomeNavbar';
 import { Footer } from './components/footer';
+import "../css/app.css"
+import "../css/navbar.css"
+import { HelpPage } from './screens/helpPage';
 
 
 function App() {
@@ -25,8 +28,8 @@ const location = useLocation()
         <>
         {location.pathname==="/" ? <HomeNavbar/> : <OtherNavbar/>}
         <Switch>
-           <Route path="/">
-            <HomePage />
+           <Route path="/help">
+            <HelpPage />
           </Route>
           <Route path="/products">
             <ProductsPage />

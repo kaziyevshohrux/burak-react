@@ -1,33 +1,33 @@
 import React from 'react';
 
 import '../css/app.css';
-import { Router, Switch , Route , Link , } from 'react-router-dom';
+import {
+  
+  Route,
+  Switch,
+  useLocation,
+  
+} from "react-router-dom";
 import { HomePage } from './screens/homePage';
 import { ProductsPage } from './screens/productsPage';
 import { UsersPage } from './screens/userPage';
 import { OrdersPage } from './screens/ordersPage';
+import { OtherNavbar } from './components/header/OtherNavbar';
+import { HomeNavbar } from './components/header/HomeNavbar';
+import { Footer } from './components/footer';
+
 
 function App() {
-  return (
-      <div>
-        <nav>
-          <ul>
-             <li>
-              <Link to="/">HomePage</Link>
-            </li>
-            <li>
-              <Link to="/products">ProductsPage</Link>
-            </li>
-            <li>
-              <Link to="/orders">OrdersPage</Link>
-            </li>
-            <li>
-              <Link to="/member-page">UserPage</Link>
-            </li>
-          </ul>
-        </nav>
 
+const location = useLocation()
+
+  return (
+        <>
+        {location.pathname==="/" ? <HomeNavbar/> : <OtherNavbar/>}
         <Switch>
+           <Route path="/">
+            <HomePage />
+          </Route>
           <Route path="/products">
             <ProductsPage />
           </Route>
@@ -40,12 +40,11 @@ function App() {
           <Route path="/">
             <HomePage />
           </Route>
-        </Switch>
-      </div>
-
-    
-)
-
+          </Switch>
+          <Footer/>
+          
+        </>
+     )
 
 }
 export default App;

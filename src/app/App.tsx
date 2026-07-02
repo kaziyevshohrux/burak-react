@@ -8,17 +8,17 @@ import {
   useLocation,
   
 } from "react-router-dom";
-import { HomePage } from './screens/homePage';
-import { ProductsPage } from './screens/productsPage';
-import { UsersPage } from './screens/userPage';
-import { OrdersPage } from './screens/ordersPage';
-import { OtherNavbar } from './components/header/OtherNavbar';
-import { HomeNavbar } from './components/header/HomeNavbar';
-import { Footer } from './components/footer';
+import  HomePage  from './screens/homePage';
+import  ProductsPage  from './screens/productsPage';
+import  UsersPage  from './screens/userPage';
+import  OrdersPage  from './screens/ordersPage';
+import  OtherNavbar  from './components/header/OtherNavbar';
+import  HomeNavbar  from './components/header/HomeNavbar';
+import HelpPage  from './screens/helpPage';
+
+import  Footer  from './components/footer';
 import "../css/app.css"
 import "../css/navbar.css"
-import { HelpPage } from './screens/helpPage';
-
 
 function App() {
 

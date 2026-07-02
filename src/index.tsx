@@ -9,6 +9,7 @@ import reportWebVitals from './reportWebVitals';
 import {BrowserRouter as Router} from "react-router-dom";
 import theme from './app/MaterialTheme';
 import './css/index.css';
+import './css/footer.css'
 
 const container = document.getElementById("root")!;
 const root = createRoot(container)

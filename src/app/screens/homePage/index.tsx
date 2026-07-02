@@ -5,7 +5,7 @@ import Advertisement from "./Advertisement";
 import ActiveUsers from "./ActiveUser";
 import Events from "./Events";
 import PopularDishes from "./PopularDishes";
-
+import "../../../css/home.css"
 export default function HomePage() {
   return <div className={"homepage"}>
     <Statistics/>

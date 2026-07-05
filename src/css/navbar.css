@@ -43,33 +43,34 @@
 
 .home-navbar a {
     text-decoration: none;
+    color: #f8f8ff;        /* ← default oq rang */
+    font-size: 16px;
+    font-weight: 500;
 }
 
-.home-navbar .hover-line{
+.home-navbar a.underline {
+    color: #d7b686;        /* ← aktiv link orange */
+}
+
+.home-navbar .hover-line {
     color: #f8f8ff;
     z-index: 100;
 }
 
-.home-navbar .underline{
+.home-navbar .hover-line:after {
     display: block;
     content: "";
     border-bottom: solid 2px #d7b686;
-}
-
-.home-navbar .hover-line:after {
-  display: block;
-  content: "";
-  border-bottom: solid 2px #d76b86;
-  transform: scaleX(0);
-  transition: transform 250ms ease-in-out;
+    transform: scaleX(0);
+    transition: transform 250ms ease-in-out;
 }
 
 .home-navbar .hover-line:hover:after {
-  transform: scaleX(1);
+    transform: scaleX(1);
 }
 
 .home-navbar div.hover-line:after {
-  transform-origin: 0% 50%;
+    transform-origin: 0% 50%;
 }
 .home-navbar .navbar-container .header-frame{
   flex-direction: row ;
@@ -94,7 +95,7 @@
   font-weight: 500;
   line-height: normal;
   letter-spacing: -0.75px;
-  color: #f8f8ff;
+  color: #efeff3;
 }
 
 .home-navbar .navbar-container .header-frame .detail .wel-txt{
@@ -127,7 +128,7 @@
   margin-top: 73px;
 
 }
-.home-navbar .navbar-container .detail .signup-botton{
+.home-navbar .navbar-container .detail .signup-button{
   width: 210px;
   height: 60px;
   border-radius: 24px;
@@ -216,33 +217,40 @@
 
 .other-navbar a {
     text-decoration: none;
+    color: #f8f8ff;        /* ← ko'k rang o'rniga oq */
+    font-size: 16px;
+    font-weight: 500;
 }
 
-.other-navbar .hover-line{
+.other-navbar a.underline {
+    color: #d7b686;        /* ← aktiv link orange */
+}
+
+.other-navbar .hover-line {
     color: #f8f8ff;
     z-index: 100;
 }
 
-.other-navbar .underline{
+.other-navbar .underline {
     display: block;
     content: "";
     border-bottom: solid 2px #d7b686;
 }
 
 .other-navbar .hover-line:after {
-  display: block;
-  content: "";
-  border-bottom: solid 2px #d76b86;
-  transform: scaleX(0);
-  transition: transform 250ms ease-in-out;
+    display: block;
+    content: "";
+    border-bottom: solid 2px #d7b686;   /* ← d76b86 → d7b686 (rang to'g'irlandi) */
+    transform: scaleX(0);
+    transition: transform 250ms ease-in-out;
 }
 
 .other-navbar .hover-line:hover:after {
-  transform: scaleX(1);
+    transform: scaleX(1);
 }
 
 .other-navbar div.hover-line:after {
-  transform-origin: 0% 50%;
+    transform-origin: 0% 50%;
 }
 
 

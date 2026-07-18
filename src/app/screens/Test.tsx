@@ -17,7 +17,7 @@ class Test extends Component {
     this.setState({color: "blue", model: "Tesla" , year: "2001"});
   }
 
-  componentDidMount(){   // runs after the first render() lifecycle
+  componentDidMount(){   // runs after >   backendan malumotni olib kelamiz DATA FETCH
     console.log("componentDidMount")
     }
   componentWillUnmount() {  // runs before the component is removed from the DOM

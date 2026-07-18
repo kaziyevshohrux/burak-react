@@ -15,7 +15,7 @@ import  OrdersPage  from './screens/ordersPage';
 import  OtherNavbar  from './components/header/OtherNavbar';
 import  HomeNavbar  from './components/header/HomeNavbar';
 import HelpPage  from './screens/helpPage';
-
+import Test from "./screens/Test"
 import  Footer  from './components/footer';
 import "../css/app.css"
 import "../css/navbar.css"
@@ -41,7 +41,8 @@ const location = useLocation()
             <UsersPage />
           </Route>
           <Route path="/">
-            <HomePage />
+            {/* <HomePage /> */}
+            <Test/>
           </Route>
           </Switch>
           <Footer/>

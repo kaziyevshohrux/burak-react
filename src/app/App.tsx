@@ -42,6 +42,7 @@ const location = useLocation()
           </Route>
           <Route path="/">
             <HomePage />
+            {/* <Test/> */}
           </Route>
           </Switch>
           <Footer/>

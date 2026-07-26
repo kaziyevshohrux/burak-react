@@ -4,14 +4,21 @@ import { CssVarsProvider, Typography } from "@mui/joy";
 import CardOverflow from "@mui/joy/CardOverflow";
 import AspectRatio from "@mui/joy/AspectRatio";
 
-const activeUsers = [
-  { memberNick: "Martin", memberImage: "/img/martin.webp" },
-  { memberNick: "Justin", memberImage: "/img/justin.webp" },
-  { memberNick: "Rose", memberImage: "/img/rose.webp" },
-  { memberNick: "Nusret", memberImage: "/img/nusret.webp" },
-];
+import { useDispatch, useSelector } from "react-redux";
+import { Dispatch } from "@reduxjs/toolkit";
+import { createSelector } from "reselect";
+import { setPopularDishes } from "./slice";
+import { retrievePopularDishes, retrieveTopUsers } from "./selector";
+import { Product } from "../../../lib/types/products";
+import ProductService from "../../services/ProductService";
+import { ProductCollection } from "../../../lib/enums/product.enum";
+import { serverApi } from "../../../lib/config";
+
+const topUsersRetriever = createSelector( retrieveTopUsers, 
+    (topUsers) => ({topUsers}) )
 
 export default function ActiveUsers() {
+  const {topUsers} = useSelector(topUsersRetriever)
   return (
     <div className={"active-users-frame"}>
       <Container>
@@ -19,10 +26,10 @@ export default function ActiveUsers() {
           <Box className={"category-title"}>Active Users</Box>
           <Stack className={"cards-frame"}>
             <CssVarsProvider>
-              {activeUsers.length !== 0 ? (
-                activeUsers.map((ele, index) => {
+              {topUsers.length !== 0 ? (
+                topUsers.map((ele ) => {
                   return (
-                    <Card key={index} variant="outlined" className={"card"}>
+                    <Card key={ele._id} variant="outlined" className={"card"}>
                       <CardOverflow>
                         <AspectRatio ratio="1">
                           <img src={ele.memberImage} alt="" />

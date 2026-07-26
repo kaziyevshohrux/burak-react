@@ -13,6 +13,7 @@ import { Product } from "../../../lib/types/products";
 import ProductService from "../../services/ProductService";
 import { ProductCollection } from "../../../lib/enums/product.enum";
 import { serverApi } from "../../../lib/config";
+import { Member } from "../../../lib/types/member";
 
 const topUsersRetriever = createSelector( retrieveTopUsers, 
     (topUsers) => ({topUsers}) )
@@ -27,17 +28,19 @@ export default function ActiveUsers() {
           <Stack className={"cards-frame"}>
             <CssVarsProvider>
               {topUsers.length !== 0 ? (
-                topUsers.map((ele ) => {
+                topUsers.map((member: Member ) => {
+                 const imagePath = `${serverApi}/${member.memberImage}`
+                  
                   return (
-                    <Card key={ele._id} variant="outlined" className={"card"}>
+                    <Card key={member._id} variant="outlined" className={"card"}>
                       <CardOverflow>
                         <AspectRatio ratio="1">
-                          <img src={ele.memberImage} alt="" />
+                          <img src={imagePath} alt="" />
                         </AspectRatio>
                       </CardOverflow>
                       <CardOverflow>
                         <Typography className={"member-nickname"}>
-                          {ele.memberNick}
+                          {member.memberNick}
                         </Typography>
                       </CardOverflow>
                     </Card>

@@ -10,17 +10,20 @@ import "../../../css/home.css"
 import { useDispatch, useSelector } from "react-redux";
 import { Dispatch } from "@reduxjs/toolkit";
 import { createSelector } from "reselect";
-import { setNewDishes, setPopularDishes } from "./slice";
+import { setNewDishes, setPopularDishes, setTopUsers } from "./slice";
 import { retrievePopularDishes } from "./selector";
 import { Product } from "../../../lib/types/products";
 import ProductService from "../../services/ProductService";
 import { ProductCollection } from "../../../lib/enums/product.enum";
+import MemberService from "../../services/MemberService";
+import { Member } from "../../../lib/types/member";
 
 
 /* Redux slice & Selector */
  const actiondispatch = (dispatch : Dispatch) => ({
     setPopularDishes: (data : Product[]) => dispatch(setPopularDishes(data)),
-    setNewDishes:(data: Product[]) => dispatch(setNewDishes(data))
+    setNewDishes:(data: Product[]) => dispatch(setNewDishes(data)),
+    setTopUsers:(data: Member[]) => dispatch(setTopUsers(data))
   });
 
  
@@ -28,12 +31,13 @@ import { ProductCollection } from "../../../lib/enums/product.enum";
 export default function HomePage() {
 const { setPopularDishes } = actiondispatch(useDispatch());
 const { setNewDishes} =  actiondispatch(useDispatch());
+const { setTopUsers} = actiondispatch(useDispatch())
   useEffect(() => {
   // Selector Store => DAta
 
     //Backend server data request => Data DidMount
     const product = new ProductService()
-
+    const member = new MemberService()
     product.getProducts({
       page:1,
       limit:4,
@@ -59,6 +63,13 @@ const { setNewDishes} =  actiondispatch(useDispatch());
     })
     .catch((err) => console.log(err))
     //Slice: Data => Store
+
+
+    member.getTopUsers().
+    then((data) => {
+      setTopUsers(data)
+    })
+    .catch((err) => console.log(err));
   }, [])
  
 

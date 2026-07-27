@@ -3,7 +3,8 @@ import { Product } from "./products";
 
 /***   REact app state*/
 export interface AppRootState {
-    homePage: HomePageState
+    homePage: HomePageState,
+    productsPage: ProductsPageState
 }
 
 
@@ -17,5 +18,11 @@ export interface HomePageState{
 
 /*Products*/
 
+export interface ProductsPageState{
+    restaurant: Member | null,
+    chosenProduct : Product | null,
+    products : Product[]
+
+}
 
 /*Orders */

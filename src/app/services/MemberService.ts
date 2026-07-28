@@ -23,7 +23,18 @@ class MemberService {
 
         }
     }
+    public async getRestaurant(productId: string): Promise<Member>{
+        try{
+            const url = `${this.path}/member/restaurant/${productId}`
+            const result = await axios.get(url, {withCredentials: true})
+            console.log("result:", result)
+            return result.data
+        }
+        catch(error){
+            console.log("error:getRestaurant", error)
+            throw error
+        }
     
 }
-
+}
 export default MemberService

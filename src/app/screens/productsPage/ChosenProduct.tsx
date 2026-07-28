@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Container, Stack, Box } from "@mui/material";
 import { Swiper, SwiperSlide } from "swiper/react";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
@@ -19,10 +19,13 @@ import { setChosenProduct, setProducts, setRestaurant } from "./slice";
 import { Product } from "../../../lib/types/products";
 import { retrieveChosenProduct, retrieveProducts, retrieveRestaurant } from "./selector";
 import { Member } from "../../../lib/types/member";
+import ProductService from "../../services/ProductService";
+import MemberService from "../../services/MemberService";
+import { serverApi } from "../../../lib/config";
 
  const actiondispatch = (dispatch : Dispatch) => ({
-  setRestaurant: (data: Product[])=> dispatch(setRestaurant(data)),
-    setChosenProduct: (data : Product[]) => dispatch(setChosenProduct(data)),
+  setRestaurant: (data: Member)=> dispatch(setRestaurant(data)),
+    setChosenProduct: (data : Product) => dispatch(setChosenProduct(data)),
     
   });
 
@@ -33,7 +36,27 @@ import { Member } from "../../../lib/types/member";
       (restaurant) => ({restaurant}) )
 
 export default function ChosenProduct() {
+  const { setChosenProduct, setRestaurant } = actiondispatch(useDispatch());
+  
+const { chosenProduct } = useSelector(chosenProductsRetriever);
+const { restaurant } = useSelector(restaurantRetriever);
+
+  const { productId } = useParams<{ productId: string }>();
+  
+  useEffect(() => {
+    const product = new ProductService()
+    product.getProduct(productId)
+    .then((data) => {setChosenProduct(data)})
+    .catch((err) => console.log("ChosenProduct:", err))
+
+    const restaurant = new MemberService()
+    restaurant.getRestaurant(productId)
+    .then((data) => {setRestaurant(data)})
+    .catch((err) => console.log("ChosenProduct:", err))
+  }, [])
+  if(!chosenProduct) return null
   return (
+
     <div className={"chosen-product"}>
       <Box className={"title"}>Product Detail</Box>
       <Container className={"product-container"}>
@@ -42,14 +65,15 @@ export default function ChosenProduct() {
             loop={true}
             spaceBetween={10}
             navigation={true}
-            modules={[FreeMode, Navigation, Thumbs]}
+            modules={[FreeMode, Navigation, Thumbs]}  
             className="swiper-area"
           >
-            {["/img/cutlet.webp", "/img/kebab-fresh.webp"].map(
+            {chosenProduct.productImages.map(
               (ele: string, index: number) => {
+                const imagePath = `${serverApi}/${ele.replace(/\\/g, "/")}`;
                 return (
                   <SwiperSlide key={index}>
-                    <img className="slider-image" src={ele} />
+                    <img className="slider-image" src={imagePath} />
                   </SwiperSlide>
                 );
               },
@@ -58,23 +82,23 @@ export default function ChosenProduct() {
         </Stack>
         <Stack className={"chosen-product-info"}>
           <Box className={"info-box"}>
-            <strong className={"product-name"}>Kebab</strong>
-            <span className={"resto-name"}>Burak</span>
-            <span className={"resto-name"}>010-2469-4424</span>
+            <strong className={"product-name"}>{chosenProduct.productName}</strong>
+            <span className={"resto-name"}>{restaurant?.memberNick}</span>
+            <span className={"resto-name"}>{restaurant?.memberPhone}</span>
             <Box className={"rating-box"}>
               <Rating name="half-rating" defaultValue={2.5} precision={0.5} />
               <div className={"evaluation-box"}>
                 <div className={"product-view"}>
                   <RemoveRedEyeIcon sx={{ mr: "10px" }} />
-                  <span>20</span>
+                  <span>{chosenProduct?.productViews || 0}</span>
                 </div>
               </div>
             </Box>
-            <p className={"product-desc"}>No Description</p>
+            <p className={"product-desc"}>{chosenProduct?.productDesc || "No Description"}</p>
             <Divider height="1" width="100%" bg="#000000" />
             <div className={"product-price"}>
               <span>Price:</span>
-              <span>$12</span>
+              <span>${chosenProduct?.productPrice}</span>
             </div>
             <div className={"button-box"}>
               <Button variant="contained">Add To Basket</Button>

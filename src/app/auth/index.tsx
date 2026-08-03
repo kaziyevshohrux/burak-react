@@ -8,7 +8,7 @@ import styled from "styled-components";
 import LoginIcon from "@mui/icons-material/Login";
 import { T } from "../../lib/types/common";
 import { Message } from "../../lib/config";
-import { MemberInput } from "../../lib/types/member";
+import { LoginInput, MemberInput } from "../../lib/types/member";
 import MemberService from "../services/MemberService";
 import { sweetErrorHandling } from "../../lib/sweetAlert";
 
@@ -67,6 +67,8 @@ const handleUserPassword = ((e: T)=> {
 const handlePasswordKeyDown = (e: T) => {
   if(e.key === "Enter" && signupOpen){
     handleSignupRequest().then()
+  }else if(e.key === "Enter" && loginOpen){
+    handleLoginRequest().then()
   }
 }
   
@@ -83,10 +85,35 @@ const handleSignupRequest = async () => {
     const member = new MemberService()
     const result = await member.signup(signupInput)
     console.log("Signup result:", result);
+//saving authenticated user
+
     handleSignupClose()
   
   }catch(error) {
     handleSignupClose()
+    sweetErrorHandling(error).then()
+  }
+}
+
+const handleLoginRequest = async () => {
+  try{
+    const isFullfill = memberNick !=="" && memberPassword !== ""
+    if(!isFullfill) throw new Error(Message.error3)
+      const loginInput: LoginInput ={
+    
+    memberNick : memberNick,
+    
+    memberPassword: memberPassword}
+  
+    const member = new MemberService()
+    const result = await member.login(loginInput)
+    console.log("Login result:", result);
+
+    //saving authenticated user
+    handleLoginClose()
+  
+  }catch(error) {
+    handleLoginClose()
     sweetErrorHandling(error).then()
   }
 }
@@ -180,17 +207,21 @@ const handleSignupRequest = async () => {
                 label="username"
                 variant="outlined"
                 sx={{ my: "10px" }}
+                onChange={handleUserPhone}
               />
               <TextField
                 id={"outlined-basic"}
                 label={"password"}
                 variant={"outlined"}
                 type={"password"}
+                 onChange={handleUserPassword}
+                onKeyDown={handlePasswordKeyDown}
               />
               <Fab
                 sx={{ marginTop: "27px", width: "120px" }}
                 variant={"extended"}
                 color={"primary"}
+                onClick={handleLoginRequest}
               >
                 <LoginIcon sx={{ mr: 1 }} />
                 Login

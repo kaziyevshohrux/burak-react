@@ -107,7 +107,17 @@ const { restaurant } = useSelector(restaurantRetriever);
               <span>${chosenProduct?.productPrice}</span>
             </div>
             <div className={"button-box"}>
-              <Button variant="contained">Add To Basket</Button>
+              <Button variant="contained"
+              onClick={(e) => {
+                              onAdd({
+                                _id: chosenProduct._id,
+                                quantity: 1,
+                                name: chosenProduct.productName,
+                                image: chosenProduct.productImages[0],
+                                price: chosenProduct.productPrice
+                              })
+                              e.stopPropagation()
+                            }}>Add To Basket</Button>
             </div>
           </Box>
         </Stack>

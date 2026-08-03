@@ -19,36 +19,29 @@ import  Footer  from './components/footer';
 import "../css/app.css"
 import "../css/navbar.css"
 import { CartItem } from '../lib/types/search';
+import useBasket from './hooks/useBasket';
 
 function App() {
 
-const location = useLocation()
-const cartJSON: string | null = localStorage.getItem("cartData")
-const currentCart = cartJSON ? JSON.parse(cartJSON): []
-const [cartItems, setCartItems] = useState<CartItem[]>(currentCart)
+const location = useLocation();
+const {cartItems, onAdd , onRemove, onDelete, onDeleteAll} = useBasket()
 
-/** handlers*/
 
-const onAdd = (input: CartItem) => {
-  const exist: any = cartItems.find((item: CartItem) => item._id === input._id)
-
-  if(exist){
-    const cartUpdate = cartItems.map((item: CartItem)=>
-    item._id === input._id 
-  ? {...exist, quantity: exist.quantity+1}
-: item)
-setCartItems(cartUpdate)
-    localStorage.setItem("cartData", JSON.stringify(cartUpdate))
-  } else {
-    const cartUpdate = [...cartItems, {...input}]
-    setCartItems(cartUpdate)
-    localStorage.setItem("cartData", JSON.stringify(cartUpdate))
-  }
-}
 
   return (
         <>
-        {location.pathname==="/" ? <HomeNavbar cartItems={cartItems}/> : <OtherNavbar cartItems={cartItems}/>}
+        {location.pathname==="/" ? <HomeNavbar
+         cartItems={cartItems}
+         onAdd={onAdd}
+         onRemove={onRemove}
+          onDelete={onDelete}
+           onDeleteAll={onDeleteAll}
+        /> : <OtherNavbar cartItems={cartItems}
+          onAdd={onAdd}
+        onRemove={onRemove}
+         onDelete={onDelete}
+          onDeleteAll={onDeleteAll}
+        />}
         <Switch>
            <Route path="/help">
             <HelpPage />

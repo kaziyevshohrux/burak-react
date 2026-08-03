@@ -44,11 +44,15 @@ const handleLoginClose = () => setLoginOpen(false)
          onRemove={onRemove}
           onDelete={onDelete}
            onDeleteAll={onDeleteAll}
+           setSignupOpen={setSignupOpen}
+           setLoginOpen={setLoginOpen}
         /> : <OtherNavbar cartItems={cartItems}
           onAdd={onAdd}
         onRemove={onRemove}
          onDelete={onDelete}
           onDeleteAll={onDeleteAll}
+          setLoginOpen={setLoginOpen}
+          setSignupOpen={setSignupOpen}
         />}
         <Switch>
            <Route path="/help">
@@ -69,7 +73,7 @@ const handleLoginClose = () => setLoginOpen(false)
           </Switch>
           <Footer/>
           
-          <AuthenticationModal
+          <AuthenticationModal 
           signupOpen={signupOpen}
           loginOpen={loginOpen}
           handleSignupClose={handleSignupClose}

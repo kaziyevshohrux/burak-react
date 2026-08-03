@@ -110,7 +110,7 @@ const totalPrice = itemsPrice + shippingPrice;
               {cartItems.map((item : CartItem) => {
                 const imagePath = `${serverApi}/${item.image?.replace(/\\/g, '/')}`
                 return (
-              <Box className={"basket-info-box"}>
+              <Box className={"basket-info-box"} key={item._id}>
                 <div className={"cancel-btn"}>
                   <CancelIcon 
                   color={"primary"}

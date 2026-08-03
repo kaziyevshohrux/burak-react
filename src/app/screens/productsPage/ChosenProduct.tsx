@@ -35,7 +35,13 @@ import { serverApi } from "../../../lib/config";
     const restaurantRetriever = createSelector( retrieveRestaurant, 
       (restaurant) => ({restaurant}) )
 
-export default function ChosenProduct() {
+
+      interface ChosenProductsProps {
+  onAdd: (input: any) => void;
+}
+
+export default function ChosenProduct(props: ChosenProductsProps) {
+  const {onAdd} = props
   const { setChosenProduct, setRestaurant } = actiondispatch(useDispatch());
   
 const { chosenProduct } = useSelector(chosenProductsRetriever);
@@ -46,14 +52,14 @@ const { restaurant } = useSelector(restaurantRetriever);
   useEffect(() => {
     const product = new ProductService()
     product.getProduct(productId)
-    .then((data) => {setChosenProduct(data)})
+    .then((data) => setChosenProduct(data))
     .catch((err) => console.log("ChosenProduct:", err))
 
-    const restaurant = new MemberService()
-    restaurant.getRestaurant(productId)
-    .then((data) => {setRestaurant(data)})
+    const member = new MemberService()
+    member.getRestaurant(productId)
+    .then((data) => setRestaurant(data))
     .catch((err) => console.log("ChosenProduct:", err))
-  }, [])
+  }, [productId])
   if(!chosenProduct) return null
   return (
 

@@ -27,8 +27,14 @@ import { useHistory } from "react-router-dom";
   const productsRetriever = createSelector( retrieveProducts, 
       (products) => ({products}) )
 
+  interface ProductsProps {
+  onAdd: (input: any) => void;
+}
 
-export default function Products() {
+
+
+export default function Products(props: ProductsProps ) {
+  const {onAdd} = props
 const {setProducts} = actiondispatch(useDispatch())
 const { products} = useSelector(productsRetriever)
 const [productSearch , setProductSearch] = useState<ProductInquiry>({
@@ -56,7 +62,7 @@ const [searchText, setSearchText] = useState<string>("")
     productSearch.search = ""
     setProductSearch({...productSearch})
   }
- })
+ },[searchText])
   /**Handler*/
 const history = useHistory()
   const searchCollectionHandler = (collection: ProductCollection) => {
@@ -183,10 +189,22 @@ const history = useHistory()
                         sx={{ backgroundImage: `url(${imagePath})` }}
                       >
                         <div className={"product-sale"}>{sizeVolume}</div>
-                        <Button className={"shop-btn"}>
+                        <Button className={"shop-btn"}
+                        onClick={(e) => {
+                              onAdd({
+                                _id: product._id,
+                                quantity: 1,
+                                name: product.productName,
+                                image: product.productImages[0],
+                                price: product.productPrice
+                              })
+                              e.stopPropagation()
+                            }}>
+                          
                           <img
                             src={"/icons/shopping-cart.svg"}
                             style={{ display: "flex" }}
+                            
                           />
                         </Button>
                         <Button className={"view-btn"} sx={{ right: "36px" }}>

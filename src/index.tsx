@@ -10,6 +10,7 @@ import {BrowserRouter as Router} from "react-router-dom";
 import theme from './app/MaterialTheme';
 import './css/index.css';
 import './css/footer.css'
+import ContextProvider from './app/context/ContextProvider';
 
 const container = document.getElementById("root")!;
 const root = createRoot(container)
@@ -19,12 +20,14 @@ const root = createRoot(container)
 root.render(
   <React.StrictMode>
     <Provider store={store}>
+      <ContextProvider>
       <ThemeProvider theme={theme}>
         <CssBaseline/>
         < Router>
            <App />
         </Router>
         </ThemeProvider >
+        </ContextProvider>
     </Provider>
   </React.StrictMode>,
 );

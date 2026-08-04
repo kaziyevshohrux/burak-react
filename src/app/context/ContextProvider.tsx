@@ -1,7 +1,8 @@
 import { ReactNode, useState } from "react";
 import Cookies from "universal-cookie";
-import { GlobalContext } from "../hooks/useGlobals";
+
 import { Member } from "../../lib/types/member";
+import { GlobalContext } from "../hooks/useGlobals";
 
 const ContextProvider : React.FC<{ children: ReactNode }> = ({ children }) => {
     const cookies = new Cookies();
@@ -18,5 +19,4 @@ const ContextProvider : React.FC<{ children: ReactNode }> = ({ children }) => {
             </GlobalContext.Provider>
             )
 }
-
 export default ContextProvider

@@ -12,6 +12,7 @@ import './css/index.css';
 import './css/footer.css'
 import ContextProvider from './app/context/ContextProvider';
 
+
 const container = document.getElementById("root")!;
 const root = createRoot(container)
 

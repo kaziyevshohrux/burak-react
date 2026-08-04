@@ -160,7 +160,7 @@ const history = useHistory()
                 <Button variant={"contained"} color={ productSearch.productCollection === ProductCollection.OTHER ? "primary" : "secondary" } onClick={()=> searchCollectionHandler(ProductCollection.OTHER)}>
                   Other
                 </Button>
-                <Button variant={"contained"} color={ productSearch.productCollection === ProductCollection.DESERT ? "primary" : "secondary" } onClick={()=> searchCollectionHandler(ProductCollection.DESERT)}>
+                <Button variant={"contained"} color={ productSearch.productCollection === ProductCollection.DESSERT ? "primary" : "secondary" } onClick={()=> searchCollectionHandler(ProductCollection.DESSERT)}>
                   Dessert
                 </Button>
                 <Button variant={"contained"} color={ productSearch.productCollection === ProductCollection.DRINK ? "primary" : "secondary" } onClick={()=> searchCollectionHandler(ProductCollection.DRINK)}>

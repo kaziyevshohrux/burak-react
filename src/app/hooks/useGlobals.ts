@@ -5,6 +5,8 @@ import { Member } from "../../lib/types/member";
 interface GlobalInterface {
     authMember: Member | null;
     setAuthMember: (member: Member | null) => void;
+    olderBuilder : Date
+    setOlderBuilder: (input: Date) => void
 
 }
 

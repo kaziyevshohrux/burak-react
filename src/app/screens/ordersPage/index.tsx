@@ -7,13 +7,14 @@ import LocationOnIcon from "@mui/icons-material/LocationOn";
 import PausedOrders from "./PausedOrders";
 import ProcessOrders from "./ProcessOrders";
 import FinishedOrders from "./FinishedOrders";
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch } from "react-redux"
 import { Dispatch } from "@reduxjs/toolkit";
-import "../../../css/order.css";
 import { setFinishedOrders, setPausedOrders, setProcessOrders } from "./slice";
 import { Order, OrderInquiry } from "../../../lib/types/order";
 import { OrderStatus } from "../../../lib/enums/order.enum copy";
 import OrderService from "../../services/OrderService";
+import { useGlobals } from "../../hooks/useGlobals";
+import "../../../css/order.css";
 
 /* Redux slice & Selector */
  const actiondispatch = (dispatch : Dispatch) => ({
@@ -28,7 +29,8 @@ export default function OrdersPage() {
   const { setProcessOrders} =  actiondispatch(useDispatch());
   const { setFinishedOrders} = actiondispatch(useDispatch())
   const [value, setValue] = useState("1");
-  const [OrderInquiry, setOrderInquiry] = useState<OrderInquiry>({
+  const {olderBuilder} = useGlobals()
+  const [orderInquiry, setOrderInquiry] = useState<OrderInquiry>({
     page: 1,
     limit: 5,
     orderStatus: OrderStatus.PAUSE
@@ -40,23 +42,23 @@ export default function OrdersPage() {
     const order = new OrderService()
 
     order
-    .getMyOrders({...OrderInquiry, orderStatus: OrderStatus.PAUSE})
+    .getMyOrders({...orderInquiry, orderStatus: OrderStatus.PAUSE})
     .then((data) => setPausedOrders(data))
     .catch((err) => console.log(err))
 
      order
-    .getMyOrders({...OrderInquiry, orderStatus: OrderStatus.PROCESS})
+    .getMyOrders({...orderInquiry, orderStatus: OrderStatus.PROCESS})
     .then((data) => setProcessOrders(data))
     .catch((err) => console.log(err))
     
      order
-    .getMyOrders({...OrderInquiry, orderStatus: OrderStatus.FINISH})
+    .getMyOrders({...orderInquiry, orderStatus: OrderStatus.FINISH})
     .then((data) => setFinishedOrders(data))
     .catch((err) => console.log(err))
     
     
 
-  },[OrderInquiry])
+  },[orderInquiry, olderBuilder])
 
 
   const handleChange = (e: SyntheticEvent, newValue: string) => {
@@ -85,8 +87,8 @@ export default function OrdersPage() {
               </Box>
             </Box>
             <Stack className={"order-main-content"}>
-              <PausedOrders />
-              <ProcessOrders />
+              <PausedOrders setValue={setValue}/>
+              <ProcessOrders setValue={setValue} />
               <FinishedOrders />
             </Stack>
           </TabContext>

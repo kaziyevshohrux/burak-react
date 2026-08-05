@@ -3,14 +3,14 @@ import { Box, Stack } from "@mui/material";
 import TabPanel from "@mui/lab/TabPanel";
 import { createSelector } from "reselect";
 import { useSelector } from "react-redux";
-import { retrievePausedOrders, retrieveProcessOrders } from "./selector";
+import { retrieveFinishedOrders, retrievePausedOrders, retrieveProcessOrders } from "./selector";
 import { serverApi } from "../../../lib/config";
 import { Order, OrderItem } from "../../../lib/types/order";
 import { Product } from "../../../lib/types/products";
 
 
 
-const finishedOrdersRetrever = createSelector( retrieveProcessOrders, 
+const finishedOrdersRetrever = createSelector( retrieveFinishedOrders, 
     (finishedOrders) => ({finishedOrders}) )
 
 

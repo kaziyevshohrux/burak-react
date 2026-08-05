@@ -24,7 +24,7 @@ interface BasketProps {
 
 export default function Basket(props: BasketProps) {
   const { cartItems , onAdd, onRemove, onDelete, onDeleteAll } = props;
-  const authMember = useGlobals();
+  const { authMember , setOlderBuilder} = useGlobals();
   const history = useHistory();
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -50,7 +50,7 @@ const totalPrice = itemsPrice + shippingPrice;
     await order.createOrder(cartItems)
 
         onDeleteAll()
-
+       setOlderBuilder(new Date())
         history.push("/orders")
     }
     catch(err){
